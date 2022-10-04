@@ -42,8 +42,15 @@ volumeControl.addEventListener('input',() =>{
     gainNode.gain.value = volumeControl.value;
 }, false);
 
+
+//audiovisualizer
+
+const analyser = audioContext.createAnalyser();
+
 //Audion yhdistäminen
-track.connect(gainNode).connect(audioContext.destination);
+track.connect(analyser)
+analyser.connect(gainNode)
+gainNode.connect(audioContext.destination);
 
 
 function Start(){
