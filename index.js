@@ -36,5 +36,11 @@ playButton.addEventListener('click', () => {
 
 const gainNode = audioContext.createGain();
 
+const volumeControl = document.querySelector('#volume');
+
+volumeControl.addEventListener('input',() =>{
+    gainNode.gain.value = volumeControl.value;
+}, false);
+
 //Audion yhdistäminen
 track.connect(gainNode).connect(audioContext.destination);
