@@ -44,3 +44,8 @@ volumeControl.addEventListener('input',() =>{
 
 //Audion yhdistäminen
 track.connect(gainNode).connect(audioContext.destination);
+
+
+function Start(){
+    document.getElementById("playbutton").innerHTML ="play/pause"
+}
