@@ -1,15 +1,20 @@
 console.log("Det funkkar!");
 
-// for legacy browsers
-const AudioContext = window.AudioContext || window.webkitAudioContext;
-
-const audioContext = new AudioContext();
-
-// get the audio element
-const audioElement = document.querySelector('audio');
-
-// pass it into the audio context
-const track = audioContext.createMediaElementSource(audioElement);
+const button = document.querySelector('button');
+button.addEventListener('click',()=>{
+    // for legacy browsers
+    const AudioContext = window.AudioContext || window.webkitAudioContext;
+    
+    const audioContext = new AudioContext();
+    
+    // get the audio element
+    const audioElement = document.querySelector('audio');
+    
+    // pass it into the audio context
+    const track = audioContext.createMediaElementSource(audioElement);
+    
+    
+}, false)
 
 
 // Select our play button
@@ -43,4 +48,13 @@ volumeControl.addEventListener('input',() =>{
 }, false);
 
 //Audion yhdistäminen
-track.connect(gainNode).connect(audioContext.destination);
+track.connect(gainNode)
+gainNode.connect(audioContext.destination);
+
+function Click(){
+    
+    console.log("toimii");
+    
+    document.getElementById("clicker").innerHTML= "Yay!";
+    
+}
