@@ -10,15 +10,17 @@
 <body>
     <div>
         
-        <h1>This is audioplayer</h1>
-        <audio src="./05 - Mascalito - The Lecture.mp3">this is audio</audio>
+        <h1>This is audioVisualizer</h1>
+        <audio src="./05 - Mascalito - The Lecture.mp3" controls>this is audio</audio>
         <button id="playbutton" data-playing="false" role="switch" aria-checked="false" onclick="Start()" >
             <span>start Audio player</span>
         </button>
         <input type="range" id="volume" min="0" max="2" value="1" step="0.01"/>
     </div>
-        <canvas id="Visualizer" width="400" height="200"></canvas>
+        <canvas id="Visualizer" width="800" height="400"></canvas>
     
-    <script src="./index.js"></script>
+        <button id="testeri" onclick="clicker()">testeri</button>
+    <script src="./script.js"></script>
 </body>
 </html>
+
