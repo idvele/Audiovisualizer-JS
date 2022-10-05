@@ -58,7 +58,7 @@ const canvas = document.getElementById('Visualizer');
 const ctx = canvas.getContext('2d');
 //audioSourve = track analyser = analyser
 
-analyser.fftSize=256;
+analyser.fftSize=2048;
 const bufferLength = analyser.frequencyBinCount;
 const dataArray = new Uint8Array(bufferLength);
 
@@ -70,7 +70,7 @@ function animate(){
     ctx.clearRect(0,0,canvas.width, canvas.height);
     analyser. getByteFrequencyData(dataArray);
     for (let i=0; i< bufferLength; i++){
-        barHeight= dataArray[i];
+        barHeight= dataArray[i]*2;
         ctx.fillStyle = 'blue';
         ctx.fillRect(x, canvas.height-barHeight, barWidth, barHeight);
         x+= barWidth;
