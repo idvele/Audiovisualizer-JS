@@ -42,10 +42,54 @@ volumeControl.addEventListener('input',() =>{
     gainNode.gain.value = volumeControl.value;
 }, false);
 
-//Audion yhdistäminen
-track.connect(gainNode).connect(audioContext.destination);
 
+//audiovisualizer
+
+//analyser
+
+const analyser = audioContext.createAnalyser();
+
+
+//canvas element
+
+const canvas = document.getElementById('Visualizer');
+// canvas.width=window.innerWidth;
+// canvas.height=window.innerHeight;
+const ctx = canvas.getContext('2d');
+//audioSourve = track analyser = analyser
+
+analyser.fftSize=256;
+const bufferLength = analyser.frequencyBinCount;
+const dataArray = new Uint8Array(bufferLength);
+
+const barWidth = canvas.width/bufferLength;
+let barHeight;
+
+function animate(){
+    x=0;
+    ctx.clearRect(0,0,canvas.width, canvas.height);
+    analyser. getByteFrequencyData(dataArray);
+    for (let i=0; i< bufferLength; i++){
+        barHeight= dataArray[i];
+        ctx.fillStyle = 'blue';
+        ctx.fillRect(x, canvas.height-barHeight, barWidth, barHeight);
+        x+= barWidth;
+    }
+    requestAnimationFrame(animate);
+}
+animate()
+
+//Audion yhdistäminen
+track.connect(analyser)
+analyser.connect(gainNode)
+gainNode.connect(audioContext.destination);
+
+console.log(audioContext);
 
 function Start(){
     document.getElementById("playbutton").innerHTML ="play/pause"
+}
+
+function clicker(){
+    console.log(dataArray) 
 }
