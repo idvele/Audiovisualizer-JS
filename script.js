@@ -58,11 +58,11 @@ const canvas = document.getElementById('Visualizer');
 const ctx = canvas.getContext('2d');
 //audioSourve = track analyser = analyser
 
-analyser.fftSize=2048;
+analyser.fftSize=128;
 const bufferLength = analyser.frequencyBinCount;
 const dataArray = new Uint8Array(bufferLength);
 
-const barWidth = canvas.width/bufferLength;
+const barWidth = (canvas.width/2)/bufferLength;
 let barHeight;
 
 //Animoi visualisaattori
@@ -81,12 +81,23 @@ animate()
 function drawVisualizer(bufferLength, x, barWidth, barHeight, dataArray){
     for (let i=0; i< bufferLength; i++){
         barHeight= dataArray[i]*2;
-    
-        ctx.fillStyle = 'green';
+        let red = 00;
+        let green = 255;
+        let blue = 0;
+        ctx.fillStyle = 'rgb('+red+','+green+','+blue+')';
+        ctx.fillRect(canvas.width/2 -x, canvas.height-barHeight, barWidth, barHeight);
+        x+= barWidth;
+    }
+    for (let i=0; i< bufferLength; i++){
+        barHeight= dataArray[i]*2;
+        let red = 00;
+        let green = 255;
+        let blue = 0;
+        ctx.fillStyle = 'rgb('+red+','+green+','+blue+')';
         ctx.fillRect(x, canvas.height-barHeight, barWidth, barHeight);
         x+= barWidth;
     }
-    
+
 }
 
 //Audion yhdistäminen
