@@ -1,9 +1,17 @@
+body{
+    background-color: black;
+}
+
+
 #Visualizer{
 
     border-style: solid;
+    border-color: aqua;
     border-width: 5px;
     display: block;
     margin-left: auto;
     margin-right: auto;
+    width: 80%;
     
 }
+
