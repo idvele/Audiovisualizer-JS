@@ -78,6 +78,9 @@ animate()
 
 //piirrä visualisaattori
 
+//todo Saisiko visualisaattorin numeroarvot printattua?
+
+
 function drawVisualizer(bufferLength, x, barWidth, barHeight, dataArray){
     for (let i=0; i< bufferLength; i++){
         barHeight= dataArray[i]*2;
