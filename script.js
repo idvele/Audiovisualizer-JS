@@ -58,7 +58,7 @@ const canvas = document.getElementById('Visualizer');
 const ctx = canvas.getContext('2d');
 //audioSourve = track analyser = analyser
 
-analyser.fftSize=128;
+analyser.fftSize=256;
 const bufferLength = analyser.frequencyBinCount;
 const dataArray = new Uint8Array(bufferLength);
 
@@ -118,6 +118,20 @@ function Start(){
     document.getElementById("playbutton").innerHTML ="play/pause"
 }
 
-function clicker(){
-    console.log(dataArray) 
-}
+
+//dataArrayn printtaus
+// function clicker(){
+//     document.getElementById("teksti").innerHTML= dataArray; 
+// }
+
+
+
+setInterval(()=>{
+
+    document.getElementById("teksti1").innerHTML= dataArray.slice(0,20); 
+    document.getElementById("teksti2").innerHTML= dataArray.slice(20,40);
+    document.getElementById("teksti3").innerHTML= dataArray.slice(40,60); 
+    document.getElementById("teksti4").innerHTML= dataArray.slice(60,80);
+    document.getElementById("teksti5").innerHTML= dataArray.slice(80,100); 
+    document.getElementById("teksti6").innerHTML= dataArray.slice(100,120);
+},100)
