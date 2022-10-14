@@ -71,7 +71,7 @@ function animate(){
     x=0;
     ctx.clearRect(0,0,canvas.width, canvas.height);
     analyser. getByteFrequencyData(dataArray);
-    drawVisualizer(bufferLength, x, barWidth, barHeight, dataArray);
+    drawVisualizer(dataArray);
     requestAnimationFrame(animate);
 }
 animate()
@@ -81,29 +81,13 @@ animate()
 //todo Saisiko visualisaattorin numeroarvot printattua?
 
 
-function drawVisualizer(bufferLength, x, barWidth, barHeight, dataArray){
-    for (let i=0; i< bufferLength; i++){
-        barHeight= dataArray[i]*2;
-        let red = 00;
-        let green = 255;
-        let blue = 0;
-        ctx.fillStyle = 'white'
-        ctx.fillRect(canvas.width/2 -x, canvas.height-barHeight -30, barWidth, 2);
-        ctx.fillStyle = 'rgb('+red+','+green+','+blue+')';
-        ctx.fillRect(canvas.width/2 -x, canvas.height-barHeight, barWidth, barHeight);
-        x+= barWidth;
-    }
-    for (let i=0; i< bufferLength; i++){
-        barHeight= dataArray[i]*2;
-        let red = 00;
-        let green = 255;
-        let blue = 0;
-        ctx.fillStyle = 'white'
-        ctx.fillRect(x, canvas.height-barHeight -30, barWidth, 2);
-        ctx.fillStyle = 'rgb('+red+','+green+','+blue+')';
-        ctx.fillRect(x, canvas.height-barHeight, barWidth, barHeight);
-        x+= barWidth;
-    }
+function drawVisualizer(i){
+    
+    ctx.beginPath();
+ctx.moveTo(20, 20);
+ctx.lineTo(i, i*3);
+ctx.lineTo(70, 100);
+ctx.stroke();
 
 }
 
