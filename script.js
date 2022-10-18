@@ -1,9 +1,23 @@
 console.log("Det funkkar!");
 
+
+
+
+
 // for legacy browsers
 const AudioContext = window.AudioContext || window.webkitAudioContext;
 
 const audioContext = new AudioContext();
+
+//load media
+const file = document.getElementById('fileupload')
+
+file.addEventListener('change', function(){
+  const files = this.files;
+  const audio1 = document.getElementById('audio1');
+  audio1.src = URL.createObjectURL(files[0]);
+  audio1.load();
+})
 
 // get the audio element
 const audioElement = document.querySelector('audio');
@@ -58,7 +72,7 @@ const canvas = document.getElementById('Visualizer');
 const ctx = canvas.getContext('2d');
 //audioSourve = track analyser = analyser
 
-analyser.fftSize=128;
+analyser.fftSize=256;
 const bufferLength = analyser.frequencyBinCount;
 const dataArray = new Uint8Array(bufferLength);
 
@@ -78,31 +92,26 @@ animate()
 
 //piirrä visualisaattori
 
+//todo Saisiko visualisaattorin numeroarvot printattua?
+
+
 function drawVisualizer(bufferLength, x, barWidth, barHeight, dataArray){
     for (let i=0; i< bufferLength; i++){
-        barHeight= dataArray[i]*2;
-        let red = 00;
-        let green = 255;
-        let blue = 0;
-        ctx.fillStyle = 'white'
+        barHeight= dataArray[i]*5;
+        ctx.save();
+        ctx.translate(canvas.width/2, canvas.height/2);
+        ctx.rotate(i+Math.PI*2/bufferLength*4);
+       const hue = i*5
+        ctx.fillStyle = 'hsl('+ hue+ ',100%,50%'
         ctx.fillRect(canvas.width/2 -x, canvas.height-barHeight -30, barWidth, 2);
-        ctx.fillStyle = 'rgb('+red+','+green+','+blue+')';
+        ctx.fillStyle = 'hsl('+ hue+ ',100%,50%';
         ctx.fillRect(canvas.width/2 -x, canvas.height-barHeight, barWidth, barHeight);
         x+= barWidth;
+        ctx.restore();
     }
-    for (let i=0; i< bufferLength; i++){
-        barHeight= dataArray[i]*2;
-        let red = 00;
-        let green = 255;
-        let blue = 0;
-        ctx.fillStyle = 'white'
-        ctx.fillRect(x, canvas.height-barHeight -30, barWidth, 2);
-        ctx.fillStyle = 'rgb('+red+','+green+','+blue+')';
-        ctx.fillRect(x, canvas.height-barHeight, barWidth, barHeight);
-        x+= barWidth;
-    }
-
+    
 }
+
 
 //Audion yhdistäminen
 track.connect(analyser)
@@ -115,6 +124,12 @@ function Start(){
     document.getElementById("playbutton").innerHTML ="play/pause"
 }
 
-function clicker(){
-    console.log(dataArray) 
-}
+setInterval(()=>{
+
+    document.getElementById("teksti1").innerHTML= dataArray.slice(0,20); 
+    document.getElementById("teksti2").innerHTML= dataArray.slice(20,40);
+    document.getElementById("teksti3").innerHTML= dataArray.slice(40,60); 
+    document.getElementById("teksti4").innerHTML= dataArray.slice(60,80);
+    document.getElementById("teksti5").innerHTML= dataArray.slice(80,100); 
+    document.getElementById("teksti6").innerHTML= dataArray.slice(100,120);
+},100)

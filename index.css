@@ -1,3 +1,7 @@
+h1{
+    color: aliceblue;
+
+}
 body{
     background-color: black;
 }
@@ -5,9 +9,9 @@ body{
 
 #Visualizer{
 
-    border-style: solid;
+    /* border-style: solid;
     border-color: aqua;
-    border-width: 5px;
+    border-width: 5px; */
     display: block;
     margin-left: auto;
     margin-right: auto;
@@ -16,3 +20,12 @@ body{
     
 }
 
+#teksti1,#teksti2, #teksti3, #teksti4, #teksti5, #teksti6{
+    color: aliceblue;
+}
+
+#fileupload{
+    
+    top: 150px;
+    color: white;
+}
