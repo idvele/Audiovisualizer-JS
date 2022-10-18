@@ -93,17 +93,7 @@ function drawVisualizer(bufferLength, x, barWidth, barHeight, dataArray){
         ctx.fillRect(canvas.width/2 -x, canvas.height-barHeight, barWidth, barHeight);
         x+= barWidth;
     }
-    for (let i=0; i< bufferLength; i++){
-        barHeight= dataArray[i]*2;
-        let red = 00;
-        let green = 255;
-        let blue = 0;
-        ctx.fillStyle = 'white'
-        ctx.fillRect(x, canvas.height-barHeight -30, barWidth, 2);
-        ctx.fillStyle = 'rgb('+red+','+green+','+blue+')';
-        ctx.fillRect(x, canvas.height-barHeight, barWidth, barHeight);
-        x+= barWidth;
-    }
+    
 
 }
 
