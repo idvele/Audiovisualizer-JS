@@ -55,41 +55,112 @@ const analyser = audioContext.createAnalyser();
 const canvas = document.getElementById('Visualizer');
 // canvas.width=window.innerWidth;
 // canvas.height=window.innerHeight;
-const ctx = canvas.getContext('2d');
-//audioSourve = track analyser = analyser
+//const ctx = canvas.getContext('2d');
+//audioSource = track analyser = analyser
 
-analyser.fftSize=256;
+analyser.fftSize=32;
 const bufferLength = analyser.frequencyBinCount;
 const dataArray = new Uint8Array(bufferLength);
-
-const barWidth = (canvas.width/2)/bufferLength;
-let barHeight;
-
+  
 //Animoi visualisaattori
+const context = canvas.getContext("2d");
+context.globalAlpha = 0.5;
 
-function animate(){
-    x=0;
-    ctx.clearRect(0,0,canvas.width, canvas.height);
-    analyser. getByteFrequencyData(dataArray);
-    drawVisualizer(dataArray);
-    requestAnimationFrame(animate);
+const cursor = {
+  x: innerWidth / 2,
+  y: innerHeight / 2,
+};
+
+let particlesArray = [];
+
+generateParticles(160);
+setSize();
+anim();
+
+addEventListener("resize", () => setSize());
+
+function generateParticles(amount) {
+  for (let i = 0; i < amount; i++) {
+    particlesArray[i] = new Particle(
+      innerWidth / 2,
+      innerHeight / 2,
+      6,
+      generateColor(),
+      0.02
+    );
+  }
 }
-animate()
+
+function generateColor() {
+  let hexSet = "0123456789ABCDEF";
+  let finalHexString = "#";
+  for (let i = 0; i < 6; i++) {
+    finalHexString += hexSet[Math.ceil(Math.random() * 15)];
+  }
+  return finalHexString;
+}
+
+function setSize() {
+  canvas.height = innerHeight;
+  canvas.width = innerWidth;
+}
+
+function Particle(x, y, particleTrailWidth, strokeColor, rotateSpeed) {
+  this.x = x;
+  this.y = y;
+  this.particleTrailWidth = particleTrailWidth;
+  this.strokeColor = strokeColor;
+  this.theta = Math.random() * Math.PI * 2;
+  this.rotateSpeed = rotateSpeed;  
+
+  
+
+//Tätä muuttujaa manipuloimalla säädetään grafiikan säde
+
+  this.t = Math.random() * 800  ;
+
+  
+  this.rotate = () => {
+    const ls = {
+      x: this.x,
+      y: this.y,
+    };
+    this.theta += this.rotateSpeed;
+    this.x = cursor.x + Math.cos(this.theta) * this.t;
+    this.y = cursor.y + Math.sin(this.theta) * this.t;
+    context.beginPath();
+    context.lineWidth = this.particleTrailWidth;
+    context.strokeStyle = this.strokeColor;
+    context.moveTo(ls.x, ls.y);
+    context.lineTo(this.x, this.y);
+    context.stroke();
+  };
+}
+
+function anim() {
+  requestAnimationFrame(anim);
+
+  context.fillStyle = "rgba(0,0,0,0.05)";
+  context.fillRect(0, 0, canvas.width, canvas.height);
+
+  particlesArray.forEach((particle) => particle.rotate());
+  analyser.getByteFrequencyData(dataArray);
+
+}
+// function animate(){
+   
+//     ctx.clearRect(0,0,canvas.width, canvas.height);
+//     drawVisualizer(dataArray);
+//     requestAnimationFrame(animate);
+// }
+// animate()
 
 //piirrä visualisaattori
 
 //todo Saisiko visualisaattorin numeroarvot printattua?
 
 
-function drawVisualizer(i){
-    
-    ctx.beginPath();
-ctx.moveTo(20, 20);
-ctx.lineTo(i, i*3);
-ctx.lineTo(70, 100);
-ctx.stroke();
 
-}
 
 //Audion yhdistäminen
 track.connect(analyser)
@@ -104,9 +175,9 @@ function Start(){
 
 
 //dataArrayn printtaus
-// function clicker(){
-//     document.getElementById("teksti").innerHTML= dataArray; 
-// }
+function clicker(){
+    document.getElementById("teksti1").innerHTML= dataArray; 
+}
 
 
 
