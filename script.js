@@ -87,12 +87,12 @@ function drawVisualizer(bufferLength, x, barWidth, barHeight, dataArray){
         ctx.save();
         ctx.translate(canvas.width/2, canvas.height/2);
         ctx.rotate(i+Math.PI*2/bufferLength);
-        let red = i*barHeight/Math.random();
-        let green = i/Math.random();
-        let blue =Math.random();
+       const hue = i*15
         ctx.fillStyle = 'white'
         ctx.fillRect(canvas.width/2 -x, canvas.height-barHeight -30, barWidth, 2);
-        ctx.fillStyle = 'rgb('+red+','+green+','+blue+')';
+        //ctx.fillStyle = getRandomRgb()
+        //ctx.fillStyle = 'rgb('+red+','+green+','+blue+')';
+        ctx.fillStyle = 'hsl('+ hue+ ',100%,50%';
         ctx.fillRect(canvas.width/2 -x, canvas.height-barHeight, barWidth, barHeight);
         x+= barWidth;
         ctx.restore();
@@ -100,6 +100,14 @@ function drawVisualizer(bufferLength, x, barWidth, barHeight, dataArray){
     
 
 }
+// function getRandomRgb() {
+//   var num = Math.round(0xffffff * Math.random());
+//   var r = num >> 16;
+//   var g = num >> 8 & 255;
+//   var b = num & 255;
+//   return 'rgb(' + r + ', ' + g + ', ' + b + ')';
+// }
+
 
 //Audion yhdistäminen
 track.connect(analyser)
