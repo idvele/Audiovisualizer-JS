@@ -83,15 +83,19 @@ animate()
 
 function drawVisualizer(bufferLength, x, barWidth, barHeight, dataArray){
     for (let i=0; i< bufferLength; i++){
-        barHeight= dataArray[i]*2;
-        let red = 00;
-        let green = 255;
-        let blue = 0;
+        barHeight= dataArray[i]*5;
+        ctx.save();
+        ctx.translate(canvas.width/2, canvas.height/2);
+        ctx.rotate(i+Math.PI*2/bufferLength);
+        let red = i*barHeight/Math.random();
+        let green = i/Math.random();
+        let blue =Math.random();
         ctx.fillStyle = 'white'
         ctx.fillRect(canvas.width/2 -x, canvas.height-barHeight -30, barWidth, 2);
         ctx.fillStyle = 'rgb('+red+','+green+','+blue+')';
         ctx.fillRect(canvas.width/2 -x, canvas.height-barHeight, barWidth, barHeight);
         x+= barWidth;
+        ctx.restore();
     }
     
 
