@@ -11,9 +11,10 @@
     <div>
         
         <h1>This is audioVisualizer</h1>
-        <audio src="./05 - Mascalito - The Lecture.mp3" controls>this is audio</audio>
-        <button id="playbutton" data-playing="false" role="switch" aria-checked="false" onclick="Start()" >
-            <span>start Audio player</span>
+        <audio id="audio1" src="./05 - Mascalito - The Lecture.mp3 - Mascalito - The Lecture.mp3" controls>this is audio</audio>
+        <input type='file' id ='fileupload' accept='audio/*'/>
+        <!-- <button id="playbutton" data-playing="false" role="switch" aria-checked="false" onclick="Start()" >
+            <span>start Audio player</span> -->
         </button>
         <input type="range" id="volume" min="0" max="2" value="1" step="0.01"/>
     </div>

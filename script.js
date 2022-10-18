@@ -5,6 +5,16 @@ const AudioContext = window.AudioContext || window.webkitAudioContext;
 
 const audioContext = new AudioContext();
 
+//load media
+const file = document.getElementById('fileupload')
+
+file.addEventListener('change', function(){
+  const files = this.files;
+  const audio1 = document.getElementById('audio1');
+  audio1.src = URL.createObjectURL(files[0]);
+  audio1.load();
+})
+
 // get the audio element
 const audioElement = document.querySelector('audio');
 
